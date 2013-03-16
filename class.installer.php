@@ -23,6 +23,16 @@ class installer {
 		$divisionID = $this->_getDivisionIDByXName($data['xName']);
 		if ( $divisionID == 0 )
 		{
+			$data = array(
+				'xName'             => ( isset($data['xName']) )             ? $data['xName']             : '',
+				'xKey'              => ( isset($data['xKey']) )              ? $data['xKey']              : '',
+				'xUnicKey'          => ( isset($data['xUnicKey']) )          ? $data['xUnicKey']          : '',
+				'xParentID'         => ( isset($data['xParentID']) )         ? $data['xParentID']         : 0,
+				'xEnabled'          => ( isset($data['xEnabled']) )          ? $data['xEnabled']          : 1,
+				'xPriority'         => ( isset($data['xPriority']) )         ? $data['xPriority']         : 0,
+				'xTemplate'         => ( isset($data['xTemplate']) )         ? $data['xTemplate']         : '',
+				'xLinkDivisionUKey' => ( isset($data['xLinkDivisionUKey']) ) ? $data['xLinkDivisionUKey'] : '',
+			);
 			$this->_insert($data,'SC_divisions');
 			$divisionID = $this->_lastInsertId('SC_divisions');
 		}
