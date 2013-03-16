@@ -20,8 +20,17 @@ class installer {
 	*/
 	public function saveDivision($data)
 	{
-		$divisionID = 0;
-		$xName = $data['xName'];
+		$divisionID = $this->_getDivisionIDByXName($data['xName']);
+		if ( $divisionID == 0 )
+		{
+			$this->_insert($data,'SC_divisions');
+			$divisionID = $this->_lastInsertId('SC_divisions');
+		}
+		return $divisionID;
+	}
+	
+	private function _getDivisionIDByXName($xName)
+	{
 		$q = "SELECT xID FROM SC_divisions WHERE xName LIKE '$xName'";
 		if ( $r = mysql_query($q) )
 		{
@@ -29,11 +38,6 @@ class installer {
 			$divisionID = $row['xID'];
 		}
 		
-		if ( $divisionID == 0 )
-		{
-			$this->_insert($data,'SC_divisions');
-			$divisionID = $this->_lastInsertId('SC_divisions');
-		}
 		return $divisionID;
 	}
 	
